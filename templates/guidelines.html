@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="page-title hero-page hero-guidelines">
+  <h1>Community Guidelines</h1>
+  <p>Learn how to participate respectfully in our community.</p>
+</section>
+
+<figure class="about-figure">
+  <img
+    src="{% static 'images/guidelines.png' %}"
+    alt="Students reviewing community guidelines"
+  />
+  <figcaption class="muted">
+    These guidelines help keep tutoring, events, and networking safe and respectful for everyone.
+  </figcaption>
+</figure>
+
+<section class="container guideline-panels" style="max-width: 800px; margin: 0 auto;">
+  <article class="card guideline-card">
+    <h2>Key Guidelines</h2>
+    <p class="guideline-intro">
+      Campus Connect is built to help students learn, collaborate, and connect.
+      To keep everyone safe and supported, please follow these core expectations:
+    </p>
+
+    <ul class="guideline-list">
+      <li>
+        <h3>Be respectful & professional</h3>
+        <p class="muted">
+          Use clear, courteous language in messages and posts. Treat classmates,
+          tutors, and organizers the way you’d want to be treated.
+        </p>
+      </li>
+      <li>
+        <br>
+        <h3>No spam, harassment, or discrimination</h3>
+        <p class="muted">
+          Do not send repeated unwanted messages, advertise irrelevant services,
+          or target anyone based on identity, background, or beliefs.
+        </p>
+      </li>
+      <li>
+        <br>
+        <h3>Be honest about your skills & availability</h3>
+        <p class="muted">
+          Accurately represent your experience, rates, and schedule so other
+          students can rely on the information you share.
+        </p>
+      </li>
+      <li>
+        <br>
+        <h3>Keep conversations on-topic & safe</h3>
+        <p class="muted">
+          Use Campus Connect for academic, professional, and campus-related
+          networking. Report anything that feels unsafe, threatening, or
+          clearly outside these goals.
+        </p>
+      </li>
+    </ul>
+  </article>
+</section>
+{% endblock %}

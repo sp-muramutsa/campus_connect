@@ -1,0 +1,15 @@
+{% for tutor in tutors %}
+      <div class="card">
+          <h3>{{ tutor.user.first_name|default:tutor.user.username }}</h3>
+          
+          <p class="muted">
+             Tutor • {{ tutor.subject }}
+          </p>
+          
+          <a href="{% url 'profile_view' tutor.user.username %}" class="button">Connect</a>
+      </div>
+      {% empty %}
+          <div class="card">
+            <p class="muted">No tutors available right now.</p>
+          </div>
+      {% endfor %}

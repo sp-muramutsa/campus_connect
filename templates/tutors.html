@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-title hero-page hero-tutors" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('/static/images/tutors.jpg'); background-size: cover; color: white;">
+  <h1>Find a Tutor</h1>
+  <p>Connect with student volunteers to help you ace your classes.</p>
+</section>
+
+<section class="container" style="max-width: 1000px; margin: 0 auto;">
+    
+    <div class="grid three">
+        {% for tutor in tutors %}
+            <article class="card" style="text-align: center;">
+                <div style="width: 80px; height: 80px; background: #eef4ff; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                    🎓
+                </div>
+                
+                <h3>{{ tutor.user.first_name|default:tutor.user.username }}</h3>
+                
+                <p class="muted" style="font-size: 0.9rem;">
+                    {{ tutor.skills|default:"General Helper" }}
+                </p>
+
+                <div style="background: #e6fffa; color: #047481; display: inline-block; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 0.85rem; margin: 0.5rem 0;">
+                    Free • Volunteer
+                </div>
+                
+                <p class="muted" style="font-size: 0.85rem; margin-top: 5px;">
+                    📍 Frazar Memorial Library, 1st Floor
+                </p>
+
+                <p style="margin: 1rem 0; font-size: 0.9rem; min-height: 3rem;">
+                    {{ tutor.bio|default:"No bio provided."|truncatewords:15 }}
+                </p>
+
+                <a href="{% url 'request_session' tutor.user.id %}" class="button outline" style="width: 100%;">
+                    Request Session
+                </a>
+            </article>
+        {% empty %}
+            <div class="card" style="grid-column: 1 / -1; text-align: center; padding: 3rem;">
+                <h3>No tutors available yet.</h3>
+                <p>Go to your <a href="{% url 'profile' %}">Profile</a> and check "List me as a Tutor" to appear here!</p>
+            </div>
+        {% endfor %}
+    </div>
+
+</section>
+{% endblock %}

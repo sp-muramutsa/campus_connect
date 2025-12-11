@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="auth-wrap">
+  <section class="form-wrap">
+    <form class="card form auth-card" method="POST" action="{% url 'login' %}">
+      {% csrf_token %} <h2>Welcome back</h2>
+      <p class="auth-subtitle">Use your campus email to continue.</p>
+
+      <label>Email
+        <input type="email" name="email" required placeholder="name@school.edu" />
+      </label>
+
+      <label>Password
+        <input type="password" name="password" required />
+      </label>
+
+      <button class="button" type="submit">Login</button>
+
+      <p class="auth-note">
+        New? <a href="{% url 'register' %}">Create an account</a>.
+      </p>
+    </form>
+  </section>
+</section>
+{% endblock %}

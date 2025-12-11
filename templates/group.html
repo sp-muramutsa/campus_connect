@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<article class="card">
+  <h1>{{ group.name }}</h1>
+  
+  <p class="muted">
+    Members: <span>{{ group.members_count }}</span> • 
+    Focus: <span>{{ group.focus }}</span>
+  </p>
+
+  <p>{{ group.description }}</p>
+
+  <section style="margin-top: 2rem;">
+    <h2>Pinned Posts</h2>
+    
+    <ul class="list">
+      {% for post in group.posts.all %}
+        <li>
+            <strong>{{ post.author }}:</strong> {{ post.content }}
+            <br><span class="muted" style="font-size: 0.8em;">{{ post.created_at|date:"M d, Y" }}</span>
+        </li>
+      {% empty %}
+        <li>No pinned posts yet.</li>
+      {% endfor %}
+    </ul>
+  </section>
+  
+  <div style="margin-top: 20px;">
+      <a href="{% url 'groups' %}" class="button outline">Back to Groups</a>
+      <button class="button">Join Group</button>
+  </div>
+
+</article>
+{% endblock %}

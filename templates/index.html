@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="hero hero-bleed" aria-label="Hero">
+  <div class="hero-copy">
+    <h1>Campus Connect</h1>
+    <p>Find tutors, make friends, discover events, and network across campus.</p>
+    <div class="row">
+      {% if not user.is_authenticated %}
+          <a class="button" href="{% url 'register' %}">Join Now</a>
+          <a class="button outline" href="{% url 'login' %}">Login</a>
+      {% else %}
+          <a class="button" href="{% url 'events' %}">Browse Events</a>
+          <a class="button outline" href="{% url 'tutors' %}">Find Tutors</a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+<section class="container" style="margin-top: 3rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h2>Upcoming Events</h2>
+        <a href="{% url 'events' %}" style="color: var(--primary); font-weight: bold;">See All →</a>
+    </div>
+
+    <div class="grid three">
+        {% for event in events %}
+            <article class="card">
+                <div style="font-weight: bold; color: var(--primary); font-size: 0.85rem; text-transform: uppercase;">
+                    {{ event.date|date:"M d" }}
+                </div>
+                <h3 style="font-size: 1.2rem; margin: 0.5rem 0;">{{ event.title }}</h3>
+                <p class="muted" style="font-size: 0.9rem;">📍 {{ event.location }}</p>
+                <a href="{% url 'events' %}" class="button outline small" style="margin-top: 1rem;">View Details</a>
+            </article>
+        {% empty %}
+            <p class="muted">No upcoming events right now.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="container" style="margin-top: 3rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+        <h2>Available Tutors</h2>
+        <a href="{% url 'tutors' %}" style="color: var(--primary); font-weight: bold;">See All →</a>
+    </div>
+
+    <div class="grid three">
+        {% for tutor in tutors %}
+            <article class="card" style="text-align: center;">
+                <div style="width: 60px; height: 60px; background: #eef4ff; border-radius: 50%; margin: 0 auto 0.5rem; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">
+                    🎓
+                </div>
+                <h3 style="font-size: 1.1rem;">{{ tutor.user.first_name }}</h3>
+                <p class="muted" style="font-size: 0.85rem;">{{ tutor.skills|default:"General Helper"|truncatewords:3 }}</p>
+                
+                <div style="background: #e6fffa; color: #047481; display: inline-block; padding: 2px 8px; border-radius: 12px; font-weight: bold; font-size: 0.75rem; margin-top: 5px; margin-bottom: 1rem;">
+                    Volunteer
+                </div>
+
+                <a href="{% url 'request_session' tutor.user.id %}" class="button outline small" style="width: 100%;">
+                    Request Session
+                </a>
+            </article>
+        {% empty %}
+            <p class="muted">No tutors registered yet.</p>
+        {% endfor %}
+    </div>
+</section>
+
+{% if not user.is_authenticated %}
+<section class="grid two home-panels" style="margin-top: 3rem;">
+  <article class="card">
+    <h2>ABOUT US</h2>
+    <p>
+      Campus Connect is a web app that helps students find academic support, build friendships, 
+      and get more involved on campus. Create a profile to match with tutors, study partners, 
+      and events that fit your goals.
+    </p>
+  </article>
+  
+  <article class="card">
+    <h2>FAST SIGN UP</h2>
+    <p>Don't have an account? It takes 30 seconds to join the community.</p>
+    <a href="{% url 'register' %}" class="button" style="width: 100%; text-align: center; margin-top: 1rem;">Create Profile</a>
+  </article>
+</section>
+{% endif %}
+
+<section class="grid three" style="margin-top: 3rem; margin-bottom: 3rem;">
+  <a class="card quick" href="{% url 'tutors' %}"><h2>Browse Tutors</h2><p>Find help by subject.</p></a>
+  <a class="card quick" href="{% url 'events' %}"><h2>See Events</h2><p>RSVP and join waitlists.</p></a>
+  <a class="card quick" href="{% url 'about' %}"><h2>About Us</h2><p>Meet the developers.</p></a>
+</section>
+
+{% endblock %}

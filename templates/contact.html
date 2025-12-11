@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="page-title hero-page hero-contact">
+  <h1>Contact</h1>
+  <p>Reach out with questions, feedback, or collaboration ideas.</p>
+</section>
+
+<figure class="about-figure">
+  <img
+    src="{% static 'images/contact.png' %}"
+    alt="Students contacting the Campus Connect team"
+  />
+  <figcaption class="muted">
+    Use this page to send questions, feedback, or ideas to the Campus Connect team.
+  </figcaption>
+</figure>
+
+<section class="card auth-card contact-card">
+  <h2>Send a message</h2>
+  <p class="auth-subtitle">
+    Share feedback, report an issue, or ask about collaborating on Campus Connect.
+  </p>
+
+  <form class="form" method="POST" action="{% url 'contact' %}">
+    {% csrf_token %}
+
+    <label for="subject">
+      Subject
+      <input
+        id="subject"
+        type="text"
+        name="subject"
+        required
+        placeholder="e.g., Feature request, bug report, partnership"
+      />
+    </label>
+
+    <label for="message">
+      Message
+      <textarea
+        id="message"
+        name="message"
+        rows="5"
+        required
+        placeholder="Tell us what’s on your mind..."
+      ></textarea>
+    </label>
+
+    <button class="button" type="submit">
+      Send Message
+    </button>
+  </form>
+
+  <p class="contact-meta">
+    Prefer email? You can also reach us at
+    <a href="mailto:paccysan@gmail.com">paccysan@gmail.com</a>.
+  </p>
+</section>
+{% endblock %}

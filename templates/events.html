@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-title hero-page hero-events">
+  <h1>Upcoming Events</h1>
+  <p>See what's happening on campus.</p>
+</section>
+
+<section class="container" style="max-width: 900px; margin: 0 auto;">
+
+  <form method="GET" action="{% url 'events' %}" style="margin-bottom: 2rem; display: flex; gap: 10px;">
+      
+      <input 
+        type="text" 
+        name="q" 
+        value="{{ query|default:'' }}" 
+        placeholder="Search events (e.g. Breakfast, Exam)..." 
+        style="flex-grow: 1; padding: 12px; border-radius: 8px; border: 1px solid #ccc;"
+      >
+
+      <button type="submit" class="button">Search</button>
+
+      {% if query %}
+          <a href="{% url 'events' %}" class="button outline" style="border-color: #666; color: #666; display: flex; align-items: center;">
+              ✕ Clear
+          </a>
+      {% endif %}
+      
+  </form>
+
+  <div class="event-list">
+      {% for event in upcoming_events %}
+          <article class="card" style="margin-bottom: 1.5rem; padding: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem;">
+              
+              <div style="font-weight: bold; color: var(--primary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;">
+                  {{ event.date|date:"F d, Y @ g:i A" }}
+              </div>
+
+              <h2 style="margin: 0; font-size: 1.5rem;">
+                  {{ event.title }}
+              </h2>
+              
+              <p class="muted" style="font-size: 0.9rem;">📍 {{ event.location }}</p>
+
+              <p style="margin-top: 0.5rem; line-height: 1.6;">
+                  {{ event.description|truncatewords:30 }}
+              </p>
+
+              <div style="margin-top: 1rem; border-top: 1px solid #eee; padding-top: 1rem;">
+                  {% if user.is_authenticated %}
+                      <form action="{% url 'toggle_rsvp' event.id %}" method="POST">
+                          {% csrf_token %}
+                          
+                          {% if event.id in attending_ids %}
+                              <button type="submit" class="button outline" style="border-color: #dc3545; color: #dc3545;">
+                                  Leave Event
+                              </button>
+                              <span style="margin-left: 10px; color: green; font-weight: bold;">✅ You are going</span>
+                          {% else %}
+                              <button type="submit" class="button">
+                                  RSVP Now
+                              </button>
+                          {% endif %}
+                      </form>
+                  {% else %}
+                      <a href="{% url 'login' %}?next={% url 'events' %}" style="color: var(--primary); font-weight: bold;">Login to RSVP</a>
+                  {% endif %}
+              </div>
+
+          </article>
+      {% empty %}
+          <div class="card" style="text-align: center; padding: 3rem;">
+              {% if query %}
+                  <h3>No results for "{{ query }}"</h3>
+                  <p><a href="{% url 'events' %}">Clear search</a> and try again.</p>
+              {% else %}
+                  <h3>No upcoming events.</h3>
+                  <p>Check back later for new activities!</p>
+              {% endif %}
+          </div>
+      {% endfor %}
+  </div>
+
+  {% if past_events %}
+  <h2 style="margin-top: 3rem; border-bottom: 1px solid #ccc; padding-bottom: 10px;">Past Events</h2>
+  <div style="opacity: 0.6;">
+      {% for event in past_events %}
+          <div class="card" style="margin-bottom: 1rem; padding: 1rem;">
+              <strong>{{ event.title }}</strong> - {{ event.date|date:"M d, Y" }}
+          </div>
+      {% endfor %}
+  </div>
+  {% endif %}
+
+</section>
+{% endblock %}

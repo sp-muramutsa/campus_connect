@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="container" style="max-width: 800px; margin-top: 2rem;">
+    <article class="card">
+      <h1 id="evTitle">{{ event.title }}</h1>
+      
+      <p class="muted" style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+          <span id="evDT">📅 {{ event.date|date:"l, F d, Y @ g:i A" }}</span> 
+          <br>
+          <span id="evLoc">📍 {{ event.location }}</span>
+          <br>
+          <span id="evHost">👤 Hosted by {{ event.creator.first_name }}</span>
+      </p>
+
+      <hr style="border: 0; border-top: 1px solid var(--border); margin: 1rem 0;">
+
+      <div id="evDesc" style="line-height: 1.8; font-size: 1.05rem; margin-bottom: 2rem;">
+          {{ event.description|linebreaks }}
+      </div>
+
+      <div class="row" style="background: #f5f7ff; padding: 1.5rem; border-radius: 12px; align-items: center; justify-content: space-between;">
+        
+        {% if user.is_authenticated %}
+            <div>
+                {% if is_attending %}
+                    <span style="color: #0f9f5f; font-weight: bold;">✅ You are going!</span>
+                {% else %}
+                    <span>Seats are available. Join us!</span>
+                {% endif %}
+            </div>
+
+            <form method="POST">
+                {% csrf_token %}
+                {% if is_attending %}
+                    <button class="button outline" style="border-color: var(--danger); color: var(--danger);">Leave Event</button>
+                {% else %}
+                    <button class="button">RSVP Now</button>
+                {% endif %}
+            </form>
+
+        {% else %}
+            <p class="muted">You must be logged in to register for this event.</p>
+            <a href="{% url 'login' %}?next={{ request.path }}" class="button outline">Login to RSVP</a>
+        {% endif %}
+
+      </div>
+    </article>
+</main>
+{% endblock %}

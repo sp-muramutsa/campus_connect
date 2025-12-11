@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="page-title hero-page hero-profile">
+  <h1>Your Profile</h1>
+  <p>Share your major, skills, and what you’re looking for on campus.</p>
+</section>
+
+<section class="grid one profile-panels" style="max-width: 600px; margin: 0 auto;">
+
+  <form class="card form" method="POST" action="{% url 'profile' %}">
+    {% csrf_token %}
+    <h2>Edit Profile</h2>
+
+    <label>Full Name
+      <input name="name" type="text" value="{{ user.first_name }}" required />
+    </label>
+
+    <label>Email
+      <input name="email" type="email" value="{{ user.email }}" readonly style="background-color: #f0f0f0; cursor: not-allowed;" />
+    </label>
+
+    <label>Phone
+      <input name="phone" type="tel" value="{{ profile.phone|default:'' }}" placeholder="(555) 123-4567" />
+    </label>
+
+    <label>Bio
+      <textarea name="bio" rows="3" placeholder="Tell us about yourself...">{{ profile.bio|default:'' }}</textarea>
+    </label>
+
+    <label>Skills/Subjects
+      <input name="skills" value="{{ profile.skills|default:'' }}" placeholder="Data Structures, Calculus, Python" />
+    </label>
+
+    <hr style="margin: 1.5rem 0; border: 0; border-top: 1px solid #eee;">
+    
+    <h3 style="font-size: 1rem; margin-bottom: 0.5rem; color: var(--primary);">Tutor Settings</h3>
+    
+    <label style="flex-direction: row; align-items: center; gap: 10px; cursor: pointer;">
+      <input type="checkbox" name="is_tutor" {% if profile.is_tutor %}checked{% endif %} style="width: auto;">
+      <span style="font-weight: 600;">I want to volunteer as a Tutor</span>
+    </label>
+    
+    <p class="muted" style="font-size: 0.85rem; margin-top: -5px; margin-bottom: 1.5rem;">
+        Check this box to appear on the public <strong>Find a Tutor</strong> page. 
+        <br>Note: All tutoring on Campus Connect is volunteer-based.
+    </p>
+
+    <button class="button" type="submit">Save Changes</button>
+
+  </form>
+</section>
+{% endblock %}

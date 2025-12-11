@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-title hero-page hero-profile">
+  <h1>Create Account</h1>
+  <p>Join Campus Connect to find tutors, events, and study groups.</p>
+</section>
+
+<section class="auth-wrap">
+  <section class="form-wrap">
+    
+    <form class="card form auth-card" method="POST" action="{% url 'register' %}">
+      {% csrf_token %}
+      
+      <h2>Create your account</h2>
+      <p class="auth-subtitle">Join the campus network today.</p>
+
+      <label>Full Name
+        <input type="text" name="name" required placeholder="e.g. John Doe" />
+      </label>
+
+      <label>Email (used for login)
+        <input type="email" name="email" required placeholder="name@school.edu" />
+      </label>
+
+      <label>Password
+        <input type="password" name="password" required minlength="6" />
+      </label>
+
+      <button class="button" type="submit">Create Account</button>
+
+      <p class="auth-note">
+        Already have an account? <a href="{% url 'login' %}">Login here</a>.
+      </p>
+    </form>
+  </section>
+</section>
+{% endblock %}

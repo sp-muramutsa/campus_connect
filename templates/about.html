@@ -1,0 +1,112 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<section class="page-title hero-page hero-about">
+  <h1>About</h1>
+  <p>Your friendly User Interactive student-built platform for tutoring, events, and networking.</p>
+</section>
+
+<figure class="about-figure">
+  <img 
+    src="{% static 'images/campus.png' %}"
+    alt="Students connecting on campus through tutoring, events, and study groups using Campus Connect." 
+  />
+  <figcaption class="muted">
+    Campus Connect is designed to help students find support, events, and communities across campus.
+  </figcaption>
+</figure>
+
+<p style="max-width: 800px; margin: 0 auto 2rem; line-height: 1.6;">
+    Campus Connect is a student-built platform designed to make campus life feel smaller,
+    friendlier, and easier to navigate. It brings tutoring, events, groups, messaging, and
+    skill-sharing into one place so students can find what they need without digging through
+    endless group chats or flyers.
+</p>
+
+<section class="grid two home-panels about-panels">
+
+  <article class="card">
+    <h2>What Students Are Saying</h2>
+    <ul class="list">
+      <li>
+        “I used Campus Connect to find a data structures tutor the week before midterms.
+        We matched by subject and availability in minutes, and it made a huge difference
+        in my final grade.”
+        <br><strong>— Jordan, Computer Science Major</strong>
+        <br><br>
+      </li>
+      <li>
+        “It’s so much easier to keep track of study jams and club events now. Instead of
+        juggling flyers and random chats, I just check the events section and RSVP there.”
+        <br><strong>— Maya, Biology Major</strong>
+        <br><br>
+      </li>
+      <li>
+        “I offered Spanish practice through the skill exchange and found someone who helped
+        me with resume writing in return. It feels like a real peer-to-peer support system,
+        not just another app.”
+        <br><strong>— Luis, Modern Languages & Business</strong>
+      </li>
+    </ul>
+  </article>
+
+  <article class="card">
+    <h2>Why We Built It</h2>
+    <p>
+      Campus Connect started from a simple question: why is it so hard to find the right
+      people and resources when they’re already on the same campus? We saw classmates
+      struggling to locate tutors, events with open seats that students never heard about,
+      and groups that wanted more members but didn’t have a central place to reach them.
+    </p>
+    <p>
+      This project was created to address that gap by combining profiles, tutoring, events,
+      groups, messaging, and maps into a single experience built from a student perspective.
+      It is currently a GUI-only prototype built to satisfy the Campus Connect course rubric:
+      backend features like password hashing, email delivery, and push notifications are
+      represented through UI placeholders, alerts, and localStorage simulations rather than
+      a live production server.
+    </p>
+    <p>
+      Even as a prototype, the design aims to show how a real version of Campus Connect
+      could make it easier for students to succeed academically, meet people they might not
+      otherwise cross paths with, and feel more at home on campus.
+    </p>
+  </article>
+</section>
+
+<section class="container" style="margin-top: 3rem;">
+    <h2 style="text-align: center; margin-bottom: 1.5rem;">Meet the Developers</h2>
+    
+    <div class="grid three">
+        <article class="card" style="text-align: center;">
+            <div style="width: 80px; height: 80px; background: #eef4ff; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                👨🏾‍💻
+            </div>
+            <h3>Fidel Anyanwu</h3>
+            <p style="color: var(--primary); font-weight: 600; font-size: 0.9rem;">CS Senior</p>
+            <p class="muted" style="font-size: 0.85rem;">McNeese State University</p>
+        </article>
+
+        <article class="card" style="text-align: center;">
+            <div style="width: 80px; height: 80px; background: #eef4ff; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                👨🏿‍💻
+            </div>
+            <h3>Sandrine Muramutsa</h3>
+            <p style="color: var(--primary); font-weight: 600; font-size: 0.9rem;">CS Junior</p>
+            <p class="muted" style="font-size: 0.85rem;">McNeese State University</p>
+        </article>
+
+        <article class="card" style="text-align: center;">
+            <div style="width: 80px; height: 80px; background: #eef4ff; border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 2.5rem;">
+                👨🏿‍💻
+            </div>
+            <h3>Wilfred Robert-Fajimi</h3>
+            <p style="color: var(--primary); font-weight: 600; font-size: 0.9rem;">CS Junior</p>
+            <p class="muted" style="font-size: 0.85rem;">McNeese State University</p>
+        </article>
+    </div>
+</section>
+
+<div style="margin-bottom: 4rem;"></div>
+{% endblock %}
