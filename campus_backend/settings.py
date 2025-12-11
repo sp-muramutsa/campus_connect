@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+import dj_database_url
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +25,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-y!re_s25@djke0#i-5di=d28qt37*8wdo1u(%chnxz8bizpwqg"
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1',
+                'localhost',
+                '.onrender.com']
 
 
 # Application definition
@@ -47,6 +53,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware", # For serving static files on Render
     "django.contrib.sessions.middleware.SessionMiddleware",
     'corsheaders.middleware.CorsMiddleware',
     "django.middleware.common.CommonMiddleware",
@@ -139,8 +146,30 @@ STATICFILES_DIRS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://localhost:8000",
+    "http://localhost:8000", 
     "http://127.0.0.1:8000",
 ]
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# For Render.com deployment
+
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+        'default': dj_database_url.config(conn_max_age=600, ssl_require=True)
+    }
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
+
+if 'RENDER' in os.environ:
+    DEBUG = False
+    SECRET_KEY = os.environ.get('SECRET_KEY')
+else:
+    DEBUG = True
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
