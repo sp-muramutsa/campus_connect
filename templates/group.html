@@ -18,8 +18,10 @@
     <ul class="list">
       {% for post in group.posts.all %}
         <li>
-            <strong>{{ post.author }}:</strong> {{ post.content }}
-            <br><span class="muted" style="font-size: 0.8em;">{{ post.created_at|date:"M d, Y" }}</span>
+            <strong>{{ post.author.first_name|default:post.author.username }}:</strong> 
+            {{ post.content }}
+            <br>
+            <span class="muted" style="font-size: 0.8em;">{{ post.created_at|date:"M d, Y" }}</span>
         </li>
       {% empty %}
         <li>No pinned posts yet.</li>

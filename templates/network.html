@@ -1,15 +1,56 @@
-{% for tutor in tutors %}
-      <div class="card">
-          <h3>{{ tutor.user.first_name|default:tutor.user.username }}</h3>
-          
-          <p class="muted">
-             Tutor • {{ tutor.subject }}
-          </p>
-          
-          <a href="{% url 'profile_view' tutor.user.username %}" class="button">Connect</a>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+  <section class="page-title hero-page hero-network">
+    <h1>Discover & Matches</h1>
+    <p>See suggested tutors and groups tailored to your profile.</p>
+  </section>
+
+  <section class="network-shell">
+    <div class="card network-panel">
+      <h2>Suggested for You</h2>
+      <p class="muted">
+        Prototype: Campus Connect looks at your profile subjects, availability, and interests
+        to suggest tutors and groups you might like.
+      </p>
+
+      <ul class="list">
+        <li><b>Tutors:</b> Matches based on subjects you selected and your preferred mode.</li>
+        <li><b>Groups:</b> Study circles and clubs that align with your skills and interests.</li>
+      </ul>
+
+      <div class="row" style="margin-top:10px;margin-bottom:14px;">
+        <a class="button outline" href="{% url 'tutors' %}">Browse all tutors</a>
+        <a class="button outline" href="{% url 'groups' %}">Explore groups</a>
       </div>
-      {% empty %}
-          <div class="card">
-            <p class="muted">No tutors available right now.</p>
-          </div>
-      {% endfor %}
+
+      <hr />
+
+      <div class="grid cards">
+        
+        {% for tutor in tutors %}
+        <div class="card">
+            <h3>{{ tutor.user.first_name|default:tutor.user.username }}</h3>
+            <p class="muted">Tutor • {{ tutor.subject }}</p> 
+            
+            <a href="{% url 'connect_student' tutor.user.id %}" class="button">Connect</a>
+        </div>
+        {% empty %}
+            <p>No new tutor matches found.</p>
+        {% endfor %}
+
+        {% for group in groups %}
+        <div class="card">
+            <h3>{{ group.name }}</h3>
+            <p class="muted">Group • {{ group.focus }}</p>
+            <a href="{% url 'group_detail' group.id %}" class="button">Join</a>
+        </div>
+        {% endfor %}
+
+        </div>
+    </div>
+  </section>
+
+{% endblock %}

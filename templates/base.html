@@ -22,13 +22,13 @@
       <nav>
         <ul class="nav-links">
           <li><a href="{% url 'home' %}">Home</a></li>
-          
+          <li><a href="{% url 'network' %}">Network</a></li> <li><a href="{% url 'groups' %}">Groups</a></li>   <li><a href="{% url 'tutors' %}">Tutors</a></li>
           <li><a href="{% url 'events' %}">Events</a></li> 
-          
-          <li><a href="{% url 'tutors' %}">Tutors</a></li>
 
           {% if user.is_authenticated %}
-            <li><a href="{% url 'profile' %}">Profile</a></li>
+            <li style="margin-left: 10px; border-left: 1px solid #ccc; padding-left: 15px;">
+                <a href="{% url 'profile' %}">Profile</a>
+            </li>
 
             <li><span style="font-weight:600; color:var(--text);">Hi, {{ user.first_name|default:user.username }}</span></li>
             <li>
@@ -38,7 +38,7 @@
                 </form>
             </li>
           {% else %}
-            <li><a href="{% url 'login' %}">Login</a></li>
+            <li style="margin-left: auto;"><a href="{% url 'login' %}">Login</a></li>
             <li><a href="{% url 'register' %}" class="button">Join</a></li>
           {% endif %}
         </ul>
@@ -50,7 +50,7 @@
       {% if messages %}
         <div style="margin-top: 1rem;">
           {% for message in messages %}
-            <div class="card" style="padding: 10px; border-left: 4px solid var(--primary); background: #fff0f0; color: var(--danger);">
+            <div class="card" style="padding: 10px; border-left: 4px solid var(--primary); background: #f9f9f9;">
               {{ message }}
             </div>
           {% endfor %}
@@ -64,10 +64,10 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <p class="muted">&copy; 2025 Campus Connect</p>
+      
       <p class="footer-links">
-        <a href="{% url 'network' %}">Network</a>
-        <a href="{% url 'guidelines' %}">Guidelines</a>
         <a href="{% url 'about' %}">About</a>
+        <a href="{% url 'guidelines' %}">Guidelines</a>
         <a href="{% url 'contact' %}">Contact</a>
       </p>
     </div>

@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# TABLE 1: User is already built-in!
+# TABLE 1: Built-in
 
 # TABLE 2: Event (One-to-Many with User who created it)
 class Event(models.Model):
@@ -9,14 +9,12 @@ class Event(models.Model):
     description = models.TextField()
     date = models.DateTimeField()
     location = models.CharField(max_length=200)
-    # Relationship: One User can create Many Events
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="created_events")
     
     def __str__(self):
         return self.title
 
 # TABLE 3: RSVP (Many-to-Many)
-# Use this for "Students attending Events"
 class RSVP(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
@@ -31,14 +29,10 @@ class Profile(models.Model):
     phone = models.CharField(max_length=20, blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
     skills = models.CharField(max_length=255, blank=True, null=True)
-    
-    # NEW FIELDS FOR TUTORS
     is_tutor = models.BooleanField(default=False) # Checkbox: "I want to be a tutor"
-    hourly_rate = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True) # e.g. 20.00
 
     def __str__(self):
         return f"{self.user.username}'s Profile"
-
 
 class SessionRequest(models.Model):
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_requests')

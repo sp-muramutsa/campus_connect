@@ -1112,3 +1112,79 @@ body{
 .hero-guidelines{ background-image:url("images/bg-admin.jpg"); background-size:cover; background-position:center; }
 .hero-about{ background-image:url("images/bg-home.jpg"); background-size:cover; background-position:center; }
 .hero-contact{ background-image:url("images/bg-home.jpg"); background-size:cover; background-position:center; }
+
+/* --- Grid Layout for Tutors --- */
+/* Ensures cards sit side-by-side and wrap automatically */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* --- Card Styling --- */
+.card {
+  background: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px; /* Softer, modern corners */
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column; /* Stacks content vertically */
+  align-items: flex-start; /* Aligns text to the left */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px); /* Lifts up slightly on hover */
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary, #4a90e2); /* Highlights border on hover */
+}
+
+/* --- Typography inside Card --- */
+.card h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.card .muted {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem; /* Pushes the button down */
+  font-weight: 500;
+  background-color: #f5f7fa; /* distinct tag-like background */
+  padding: 4px 10px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+/* --- Button Styling --- */
+.card .button {
+  margin-top: auto; /* Pushes button to the bottom if cards vary in height */
+  width: 100%;       /* Full width button looks better on small cards */
+  text-align: center;
+  background-color: var(--primary, #4a90e2);
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.card .button:hover {
+  background-color: #357abd; /* Slightly darker blue on hover */
+}
+
+/* --- Empty State Styling --- */
+/* Matches the "empty" block in your Django loop */
+.card p.muted:only-child { 
+  margin: 0;
+  background: none;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+  font-style: italic;
+}

@@ -2,27 +2,28 @@
 {% load static %}
 
 {% block content %}
+
   <section class="page-title hero-page hero-groups">
     <h1>Groups & Study Circles</h1>
     <p>Join recurring study groups and clubs that fit your interests.</p>
   </section>
 
   <section class="grid cards">
-    
     {% for group in groups %}
       <div class="card">
         <h3>{{ group.name }}</h3>
         <p class="muted">
-          <strong>Focus:</strong> {{ group.focus }}<br>
-          <small>{{ group.members_count }} Members</small>
+          Members: {{ group.members_count }} • Focus: {{ group.focus }}
         </p>
         <p>{{ group.description|truncatewords:20 }}</p>
         
-        <a href="{% url 'group_detail' group.id %}" class="button outline">View Group</a>
+        <div style="margin-top: 1rem;">
+          <a href="{% url 'group_detail' group.id %}" class="button outline">View Group</a>
+        </div>
       </div>
     {% empty %}
-      <p>No active groups found at the moment.</p>
+      <p style="padding: 20px;">No active groups found.</p>
     {% endfor %}
-
   </section>
+
 {% endblock %}
