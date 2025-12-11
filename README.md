@@ -4,10 +4,6 @@ This document outlines the architecture, setup instructions, and security measur
 
 ## 1. File Structure Description
 
-The project follows a standard Django architecture, separating global configuration (`campus_connect/`) from application logic (`api/`).
-
-## 1. 📂 File Structure Description
-
 This project uses a standard Django layout, organized around the top-level project directory (`campus_backend`) and the primary application (`api`).
 
 | Directory / File | Type | Purpose |
