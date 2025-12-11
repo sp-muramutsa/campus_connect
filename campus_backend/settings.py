@@ -165,7 +165,7 @@ else:
     }
 
 if 'RENDER' in os.environ:
-    DEBUG = False
+    DEBUG = True
     SECRET_KEY = os.environ.get('SECRET_KEY')
 else:
     DEBUG = True
